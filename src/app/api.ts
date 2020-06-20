@@ -1,7 +1,7 @@
 import { Observable, from } from 'rxjs';
 import { Project } from './models/project';
 import { ajax, AjaxResponse } from 'rxjs/ajax';
-import { map } from 'rxjs/operators';
+import { map, flatMap } from 'rxjs/operators';
 import { plainToClass } from 'class-transformer';
 import { environment } from 'src/environments/environment';
 import { Todo } from './models/todo';
@@ -19,20 +19,25 @@ class Api {
 
   public updateTodo(todo: Todo): Observable<Todo> {
     return from(this.updateTodoRequest(todo))
-      .pipe(map(res => res.json()))
-      .pipe(map(todoJson => plainToClass(Todo, todoJson)));
+      .pipe(
+        flatMap(res => res.json()),
+        map(todoJson => plainToClass(Todo, todoJson))
+      );
   }
 
   public createTodo(todo: Todo): Observable<Todo> {
     return from(this.createTodoRequest(todo))
-      .pipe(map(res => res.json()))
-      .pipe(map(todoJson => plainToClass(Todo, todoJson)));
+      .pipe(
+        flatMap(res => res.json()),
+        map(todoJson => plainToClass(Todo, todoJson))
+      );
   }
 
   updateTodoRequest(todo: Todo): Promise<Response> {
     return fetch(this.todoPath(todo), {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json; utf-8' },
+      redirect: 'follow',
       mode: 'cors',
       body: JSON.stringify({ todo: todo.toJson() })
     });
@@ -42,6 +47,7 @@ class Api {
     return fetch(this.todosPath(todo.project), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json; utf-8' },
+      redirect: 'follow',
       mode: 'cors',
       body: JSON.stringify({ todo: todo.toJson() })
     });

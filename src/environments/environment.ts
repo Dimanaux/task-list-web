@@ -4,7 +4,6 @@
 
 export const environment = {
   production: false,
-  // apiBaseUrl: 'http://localhost:3000'
   apiBaseUrl: 'https://og-task-list-api.herokuapp.com'
 };
 

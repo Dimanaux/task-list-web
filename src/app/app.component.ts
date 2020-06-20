@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Project } from './models/project';
 import { api } from './api';
+import { Todo } from './models/todo';
 
 @Component({
   selector: 'app-root',

@@ -22,10 +22,6 @@ export class TodosComponent {
 
   toggleCompleted(todo: Todo) {
     todo.isCompleted = !todo.isCompleted;
-    api.updateTodo(todo).subscribe({
-      next: (todo) => {
-        console.log("Updated", todo);
-      }
-    });
+    api.updateTodo(todo);
   }
 }

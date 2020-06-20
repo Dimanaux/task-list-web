@@ -2,6 +2,7 @@ import { Component, Input, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TodoCreationDialog } from './components/todoCreation.dialog';
 import { Project } from './models/project';
+import { Todo } from './models/todo';
 import { api } from './api';
 
 @Component({
@@ -31,13 +32,16 @@ export class NavigationComponent {
   constructor(public dialog: MatDialog) { }
 
   openDialog() {
-    const dialogRef = this.dialog.open( TodoCreationDialog, {
+    const dialogRef = this.dialog.open(TodoCreationDialog, {
       data: { projects: this.projects }
     });
 
-    dialogRef.afterClosed().subscribe(todo => {
+    dialogRef.afterClosed().subscribe((todo: Todo) => {
       if (todo) {
-        api.createTodo(todo);
+        let project = todo.project;
+        api.createTodo(todo).subscribe({
+          next: (todo) => { project.todos.push(todo); }
+        });
       }
     });
   }
