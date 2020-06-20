@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Todo } from '../models/todo';
+import { api } from '../api';
 
 @Component({
   selector: 'todo-comp',
   template: `
-    <mat-list-option [selected]=todo.isCompleted>
+    <mat-list-option [selected]=todo.isCompleted checkboxPosition='before' [value]=todo>
       {{todo.text}}
     </mat-list-option>
   `,
@@ -13,5 +14,5 @@ import { Todo } from '../models/todo';
 })
 export class TodoComponent {
   @Input()
-  public todo: Todo;
+  todo: Todo;
 }

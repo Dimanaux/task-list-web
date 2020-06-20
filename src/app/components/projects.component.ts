@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Project } from '../models/project';
 
-import { ajax } from 'rxjs/ajax';
-import { plainToClass } from "class-transformer";
+import { api } from '../api';
 
 @Component({
   selector: 'projects-comp',
@@ -28,17 +27,10 @@ export class ProjectsComponent implements OnInit {
   projects: Array<Project> = [];
 
   ngOnInit() {
-    this.projectsJson();
-  }
-
-  projectsJson() {
-    ajax('https://og-task-list-api.herokuapp.com/projects')
-      .subscribe({
-        next: (res) => {
-          this.projects = plainToClass(Project, <Object[]> res.response);
-        },
-        error(err) { console.error('Error: ' + err); },
-        complete() { console.log('Completed'); }
-      });
+    api.projects.subscribe({
+      next: (projects) => { this.projects = projects; },
+      error(err) { console.error('Error: ' + err); },
+      complete() { console.log('Completed'); }
+    });
   }
 }
