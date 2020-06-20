@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Project } from './project';
+import { Project } from '../models/project';
 
 import { ajax } from 'rxjs/ajax';
 import { plainToClass } from "class-transformer";

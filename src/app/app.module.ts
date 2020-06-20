@@ -11,10 +11,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatListModule, MatList } from '@angular/material/list';
 
 import { NavigationComponent } from './navigation.component';
-import { ProjectsComponent } from './projects.component';
-import { ProjectComponent } from './project.component';
-import { TodosComponent } from './todos.component';
-import { TodoComponent } from './todo.component';
+import { ProjectsComponent } from './components/projects.component';
+import { ProjectComponent } from './components/project.component';
+import { TodosComponent } from './components/todos.component';
+import { TodoComponent } from './components/todo.component';
 
 @NgModule({
   declarations: [
