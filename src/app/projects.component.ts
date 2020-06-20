@@ -34,7 +34,7 @@ export class ProjectsComponent implements OnInit {
     ajax('https://og-task-list-api.herokuapp.com/projects')
       .subscribe({
         next: (res) => {
-          this.projects = plainToClass(Project, res.response);
+          this.projects = <Project[]>plainToClass(Project, res.response);
         },
         error(err) { console.error('Error: ' + err); },
         complete() { console.log('Completed'); }

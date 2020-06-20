@@ -21,5 +21,4 @@ import { Project } from './project';
 })
 export class ProjectComponent {
   @Input() project: Project;
-  // @Input() project: Number;
 }
