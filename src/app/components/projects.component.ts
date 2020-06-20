@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Project } from '../models/project';
-
-import { api } from '../api';
 
 @Component({
   selector: 'projects-comp',
@@ -23,14 +21,7 @@ import { api } from '../api';
     `
   ]
 })
-export class ProjectsComponent implements OnInit {
-  projects: Array<Project> = [];
-
-  ngOnInit() {
-    api.projects.subscribe({
-      next: (projects) => { this.projects = projects; },
-      error(err) { console.error('Error: ' + err); },
-      complete() { console.log('Completed'); }
-    });
-  }
+export class ProjectsComponent {
+  @Input()
+  public projects: Project[];
 }

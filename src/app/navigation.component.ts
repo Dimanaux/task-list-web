@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input, Inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { TodoCreationDialog } from './components/todoCreation.dialog';
+import { Project } from './models/project';
+import { api } from './api';
 
 @Component({
   selector: 'navigation-comp',
@@ -7,7 +11,7 @@ import { Component } from '@angular/core';
       <span class="fill-space"></span>
       <span>{{title}}</span>
       <span class="fill-space"></span>
-      <mat-icon aria-hidden="false">add</mat-icon>
+      <mat-icon aria-hidden="false" (click)="openDialog()">add</mat-icon>
     </mat-toolbar>
   `,
   styles: [
@@ -20,4 +24,21 @@ import { Component } from '@angular/core';
 })
 export class NavigationComponent {
   title = 'task-list-web';
+
+  @Input()
+  projects: Project[];
+
+  constructor(public dialog: MatDialog) { }
+
+  openDialog() {
+    const dialogRef = this.dialog.open( TodoCreationDialog, {
+      data: { projects: this.projects }
+    });
+
+    dialogRef.afterClosed().subscribe(todo => {
+      if (todo) {
+        api.createTodo(todo);
+      }
+    });
+  }
 }

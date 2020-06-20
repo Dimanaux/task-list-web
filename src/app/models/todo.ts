@@ -4,7 +4,7 @@ export class Todo {
   id: Number;
   text: string;
   isCompleted: boolean;
-  project: Project;
+  public project: Project;
 
   constructor(id: Number, text: string, isCompleted = false) {
     this.id = id;
