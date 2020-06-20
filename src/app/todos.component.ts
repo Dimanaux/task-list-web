@@ -12,5 +12,6 @@ import { Todo } from './todo';
   ]
 })
 export class TodosComponent {
-  @Input() todos: Array<Todo>;
+  @Input()
+  public todos: Array<Todo>;
 }

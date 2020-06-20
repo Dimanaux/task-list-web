@@ -25,16 +25,17 @@ import { plainToClass } from "class-transformer";
   ]
 })
 export class ProjectsComponent implements OnInit {
+  projects: Array<Project> = [];
+
   ngOnInit() {
     this.projectsJson();
   }
-  projects: Array<Project> = [];
 
   projectsJson() {
     ajax('https://og-task-list-api.herokuapp.com/projects')
       .subscribe({
         next: (res) => {
-          this.projects = <Project[]>plainToClass(Project, res.response);
+          this.projects = plainToClass(Project, <Object[]> res.response);
         },
         error(err) { console.error('Error: ' + err); },
         complete() { console.log('Completed'); }

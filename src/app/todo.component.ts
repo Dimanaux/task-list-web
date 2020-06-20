@@ -12,5 +12,6 @@ import { Todo } from './todo';
   ]
 })
 export class TodoComponent {
-  @Input() todo: Todo;
+  @Input()
+  public todo: Todo;
 }
