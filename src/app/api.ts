@@ -23,9 +23,24 @@ class Api {
       .pipe(map(todoJson => plainToClass(Todo, todoJson)));
   }
 
+  public createTodo(todo: Todo): Observable<Todo> {
+    return from(this.createTodoRequest(todo))
+      .pipe(map(res => res.json()))
+      .pipe(map(todoJson => plainToClass(Todo, todoJson)));
+  }
+
   updateTodoRequest(todo: Todo): Promise<Response> {
     return fetch(this.todoPath(todo), {
       method: 'PATCH',
+      headers: { 'Content-Type': 'application/json; utf-8' },
+      mode: 'cors',
+      body: JSON.stringify({ todo: todo.toJson() })
+    });
+  }
+
+  createTodoRequest(todo: Todo): Promise<Response> {
+    return fetch(this.todosPath(todo.project), {
+      method: 'POST',
       headers: { 'Content-Type': 'application/json; utf-8' },
       mode: 'cors',
       body: JSON.stringify({ todo: todo.toJson() })

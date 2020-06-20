@@ -6,9 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
-import { MatListModule, MatList } from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { NavigationComponent } from './navigation.component';
 import { ProjectsComponent } from './components/projects.component';
@@ -30,9 +30,9 @@ import { TodoComponent } from './components/todo.component';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
-    MatGridListModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
