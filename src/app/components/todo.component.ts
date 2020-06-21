@@ -10,9 +10,9 @@ import { Todo } from '../models/todo';
   `,
   styles: [
     `
-    .strike {
-      text-decoration: line-through;
-    }
+      .strike {
+        text-decoration: line-through;
+      }
     `
   ]
 })

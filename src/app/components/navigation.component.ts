@@ -17,9 +17,9 @@ import { api } from '../api';
   `,
   styles: [
     `
-    .fill-space {
-      flex: 1 1 auto;
-    }
+      .fill-space {
+        flex: 1 1 auto;
+      }
     `
   ]
 })
