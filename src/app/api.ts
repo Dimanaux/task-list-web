@@ -7,50 +7,32 @@ import { environment } from 'src/environments/environment';
 import { Todo } from './models/todo';
 
 class Api {
-  baseUrl: string;
-
-  constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
-  }
+  constructor(public baseUrl: string) { }
 
   public get projects(): Observable<Project[]> {
     return ajax(this.projectsPath).pipe(map(projectsFromResponse));
   }
 
   public updateTodo(todo: Todo): Observable<Todo> {
-    return from(this.updateTodoRequest(todo))
-      .pipe(
-        flatMap(res => res.json()),
-        map(todoJson => plainToClass(Todo, todoJson))
-      );
+    return from(this.updateTodoRequest(todo)).pipe(
+      flatMap(res => res.json()),
+      map(todoJson => plainToClass(Todo, todoJson))
+    );
   }
 
   public createTodo(todo: Todo): Observable<Todo> {
-    return from(this.createTodoRequest(todo))
-      .pipe(
-        flatMap(res => res.json()),
-        map(todoJson => plainToClass(Todo, todoJson))
-      );
+    return from(this.createTodoRequest(todo)).pipe(
+      flatMap((res: Response) => res.json()),
+      map(todoJson => plainToClass(Todo, todoJson))
+    );
   }
 
   updateTodoRequest(todo: Todo): Promise<Response> {
-    return fetch(this.todoPath(todo), {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json; utf-8' },
-      redirect: 'follow',
-      mode: 'cors',
-      body: JSON.stringify({ todo: todo.toJson() })
-    });
+    return todoRequest('PATCH', this.todoPath(todo), todo);
   }
 
   createTodoRequest(todo: Todo): Promise<Response> {
-    return fetch(this.todosPath(todo.project), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json; utf-8' },
-      redirect: 'follow',
-      mode: 'cors',
-      body: JSON.stringify({ todo: todo.toJson() })
-    });
+    return todoRequest('POST', this.todosPath(todo.project), todo);
   }
 
   get projectsPath(): string {
@@ -71,15 +53,25 @@ class Api {
 }
 
 function projectsFromResponse(res: AjaxResponse): Project[] {
-  let projects = plainToClass(Project, <Object[]>res.response);
+  const projects = plainToClass(Project, <Record<string, unknown>[]>res.response);
   projects.forEach(project => {
     project.todos = project.todos.map(todoJson => {
-      let todo = plainToClass(Todo, todoJson);
+      const todo = plainToClass(Todo, todoJson);
       todo.project = project;
       return todo;
     });
   });
   return projects;
+}
+
+function todoRequest(method: string, path: string, todo: Todo): Promise<Response> {
+  return fetch(path, {
+    method: method,
+    headers: { 'Content-Type': 'application/json; utf-8' },
+    redirect: 'follow',
+    mode: 'cors',
+    body: JSON.stringify({ todo: todo.toJson() })
+  });
 }
 
 export const api = new Api(environment.apiBaseUrl);

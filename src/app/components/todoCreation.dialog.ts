@@ -40,7 +40,7 @@ export class TodoCreationDialog {
     @Inject(MAT_DIALOG_DATA) public data: { projects: Project[]; }
   ) { }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close();
   }
 }

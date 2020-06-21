@@ -15,12 +15,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 
-import { NavigationComponent } from './navigation.component';
+import { NavigationComponent } from './components/navigation.component';
+import { TodoCreationDialog } from './components/todoCreation.dialog';
 import { ProjectsComponent } from './components/projects.component';
 import { ProjectComponent } from './components/project.component';
 import { TodosComponent } from './components/todos.component';
 import { TodoComponent } from './components/todo.component';
-import { TodoCreationDialog } from './components/todoCreation.dialog';
 
 @NgModule({
   declarations: [

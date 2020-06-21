@@ -15,9 +15,7 @@ import { Project } from '../models/project';
         <todos-comp [todos]=project.todos></todos-comp>
       </mat-card-content>
     </mat-card>
-  `,
-  styles: [
-  ]
+  `
 })
 export class ProjectComponent {
   @Input()

@@ -9,18 +9,16 @@ import { api } from '../api';
       <todo-comp *ngFor="let todo of todos" [todo]=todo>
       </todo-comp>
     </mat-selection-list>
-  `,
-  styles: [
-  ]
+  `
 })
 export class TodosComponent {
-  @Input() todos: Array<Todo>;
+  @Input() todos: Todo[];
 
-  onSelection(event: { option: { value: Todo; }; }) {
+  onSelection(event: { option: { value: Todo; }; }): void {
     this.toggleCompleted(event.option.value);
   }
 
-  toggleCompleted(todo: Todo) {
+  toggleCompleted(todo: Todo): void {
     todo.isCompleted = !todo.isCompleted;
     api.updateTodo(todo);
   }
