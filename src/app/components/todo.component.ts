@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Todo } from '../models/todo';
-import { api } from '../api';
 
 @Component({
   selector: 'todo-comp',
@@ -11,9 +10,9 @@ import { api } from '../api';
   `,
   styles: [
     `
-    .strike {
-      text-decoration: line-through;
-    }
+      .strike {
+        text-decoration: line-through;
+      }
     `
   ]
 })

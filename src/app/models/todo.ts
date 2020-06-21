@@ -1,18 +1,14 @@
 import { Project } from './project';
 
 export class Todo {
-  id: Number;
-  text: string;
-  isCompleted: boolean;
-  public project: Project;
+  constructor(
+    public id: number,
+    public text: string,
+    public isCompleted = false,
+    public project: Project = null
+  ) { }
 
-  constructor(id: Number, text: string, isCompleted = false) {
-    this.id = id;
-    this.text = text;
-    this.isCompleted = isCompleted;
-  }
-
-  toJson(): Object {
+  toJson(): Record<string, unknown> {
     return {
       text: this.text,
       isCompleted: this.isCompleted

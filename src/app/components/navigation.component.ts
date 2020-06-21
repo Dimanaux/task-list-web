@@ -1,9 +1,9 @@
-import { Component, Input, Inject } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { TodoCreationDialog } from './components/todoCreation.dialog';
-import { Project } from './models/project';
-import { Todo } from './models/todo';
-import { api } from './api';
+import { TodoCreationDialog } from './todoCreation.dialog';
+import { Project } from '../models/project';
+import { Todo } from '../models/todo';
+import { api } from '../api';
 
 @Component({
   selector: 'navigation-comp',
@@ -17,9 +17,9 @@ import { api } from './api';
   `,
   styles: [
     `
-    .fill-space {
-      flex: 1 1 auto;
-    }
+      .fill-space {
+        flex: 1 1 auto;
+      }
     `
   ]
 })
@@ -31,14 +31,14 @@ export class NavigationComponent {
 
   constructor(public dialog: MatDialog) { }
 
-  openDialog() {
+  openDialog(): void {
     const dialogRef = this.dialog.open(TodoCreationDialog, {
       data: { projects: this.projects }
     });
 
     dialogRef.afterClosed().subscribe((todo: Todo) => {
       if (todo) {
-        let project = todo.project;
+        const project = todo.project;
         api.createTodo(todo).subscribe({
           next: (todo) => { project.todos.push(todo); }
         });
